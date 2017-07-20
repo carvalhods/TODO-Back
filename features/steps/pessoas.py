@@ -1,6 +1,13 @@
 from behave import given, when, then
 from app.controllers.pessoaController import get_person
 from app.controllers.pessoaController import get_all_people
+from app.controllers.pessoaController import delete_person
+
+
+@given(u'os seguintes valores')
+def step_impl(context):
+    for row in context.table:
+        context.id = row['id']
 
 
 ##########################################################################
@@ -24,11 +31,6 @@ def step_impl(context):
 ##########################################################################
 # Cenário: Desenvolver um método para localizar uma pessoa pelo ID
 ##########################################################################
-@given(u'o valor "{id}"')
-def step_impl(context, id):
-    context.id = id
-
-
 @when(u'o usuário fazer uma busca por ID')
 def step_impl(context):
     context.retorno = str(get_person(context.id))
@@ -37,3 +39,16 @@ def step_impl(context):
 @then(u'a aplicação deve retornar um objeto contendo o ID "{id}"')
 def step_impl(context, id):
     assert context.retorno.find(id) >= 0
+
+
+##########################################################################
+# Cenário: Desenvolver um método para deletar uma pessoa pelo ID
+##########################################################################
+@when(u'o usuário deletar uma pessoa do cadastro')
+def step_impl(context):
+    context.retorno = str(delete_person(context.id))
+
+
+@then(u'a aplicação deve retornar o código "{codigo}"')
+def step_impl(context, codigo):
+    assert context.retorno[-4:-1] == codigo
