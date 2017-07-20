@@ -9,6 +9,12 @@ Como usuário
 Desejo um sistema web de cadastro de pessoas
 
 @10
+Cenário: Desenvolver um método para listar todas as pessoas cadastradas
+Dado nenhum valor
+Quando o usuário buscar por todos os registros
+Então a aplicação deve retornar uma lista, preenchida ou não
+
+@11
 Cenário: Desenvolver um método para localizar uma pessoa pelo ID
 Dado o valor "596d1b786e95521f7596f7da"
 Quando o usuário fazer uma busca por ID
