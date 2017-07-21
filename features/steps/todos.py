@@ -1,17 +1,11 @@
 from behave import given, when, then
-from app.controllers.pessoaController import get_person
-from app.controllers.pessoaController import get_all_people
-from app.controllers.pessoaController import delete_person
-
-
-@given(u'os seguintes valores')
-def step_impl(context):
-    for row in context.table:
-        context.id = row['id']
+from app.controllers.todoController import get_all_todos
+from app.controllers.todoController import get_todo
+from app.controllers.todoController import delete_todo
 
 
 ##########################################################################
-# Cenário: Desenvolver um método para listar todas as pessoas cadastradas
+# Cenário: Desenvolver um método para listar todos os TODOs cadastrados
 ##########################################################################
 @given(u'nenhum valor')
 def step_impl(context):
@@ -20,7 +14,7 @@ def step_impl(context):
 
 @when(u'o usuário buscar por todos os registros')
 def step_impl(context):
-    context.retorno = str(get_all_people())
+    context.retorno = str(get_all_todos())
 
 
 @then(u'a aplicação deve retornar uma lista, preenchida ou não')
@@ -29,24 +23,34 @@ def step_impl(context):
 
 
 ##########################################################################
-# Cenário: Desenvolver um método para localizar uma pessoa pelo ID
+# Cenário: Desenvolver um método para localizar um TODO
 ##########################################################################
-@when(u'o usuário fazer uma busca por ID')
+@given(u'a palavra-chave "{keyword}"')
+def step_impl(context, keyword):
+    context.keyword = keyword
+
+
+@when(u'o usuário fazer uma busca')
 def step_impl(context):
-    context.retorno = str(get_person(context.id))
+    context.retorno = str(get_todo(context.keyword))
 
 
-@then(u'a aplicação deve retornar um objeto contendo o ID "{id}"')
+@then(u'a aplicação deve retornar um objeto contendo o valor "{valor}"')
+def step_impl(context, valor):
+    assert context.retorno.find(valor) >= 0
+
+
+##########################################################################
+# Cenário: Desenvolver um método para deletar um TODO
+##########################################################################
+@given(u'o ID "{id}"')
 def step_impl(context, id):
-    assert context.retorno.find(id) >= 0
+    context.id = id
 
 
-##########################################################################
-# Cenário: Desenvolver um método para deletar uma pessoa pelo ID
-##########################################################################
-@when(u'o usuário deletar uma pessoa do cadastro')
+@when(u'o usuário deletar um TODO do cadastro')
 def step_impl(context):
-    context.retorno = str(delete_person(context.id))
+    context.retorno = str(delete_todo(context.id))
 
 
 @then(u'a aplicação deve retornar o código "{codigo}"')

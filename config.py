@@ -1,5 +1,5 @@
 MONGO_SETTINGS = {
-    'db': 'example',
+    'db': 'todo_db',
     'host': 'localhost',
     'port': 27017
 }
