@@ -4,46 +4,21 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-aniso8601==1.2.1
 argparse==1.4.0           # via dateutils
-behave==1.2.5
-certifi==2017.4.17
-chardet==3.0.4
-click==6.7
-colored-traceback==0.3.0
-dateutils==0.6.6
-decorator==4.1.1
-first==2.0.1
+click==6.7                # via flask
+dateutils==0.6.6          # via mongoengine-goodjson
 flask-api==0.7.1
-flask-restful==0.3.6
-flask==0.12.2             # via flask-api, flask-restful
-httpie==0.9.9
-idna==2.5
-ipython-genutils==0.2.0
-ipython==6.1.0
-itsdangerous==0.24
-jedi==0.10.2
+flask-cors==3.0.3
+flask==0.12.2
+itsdangerous==0.24        # via flask
 jinja2==2.9.6             # via flask
 markupsafe==1.0           # via jinja2
 marshmallow-mongoengine==0.7.8
-marshmallow==2.13.5
+marshmallow==2.13.5       # via marshmallow-mongoengine
 mongoengine-goodjson==1.1
 mongoengine==0.13.0
-parse-type==0.3.4
-parse==1.8.2
-pexpect==4.2.1
-pickleshare==0.7.4
-pip-tools==1.9.0
-prompt-toolkit==1.0.14
-ptyprocess==0.5.2
-pygments==2.2.0           # via colored-traceback, httpie, ipython
-pymongo==3.4.0
-python-dateutil==2.6.1
-pytz==2017.2
-requests==2.18.1
-simplegeneric==0.8.1
-six==1.10.0
-traitlets==4.3.2
-urllib3==1.21.1
-wcwidth==0.1.7
+pymongo==3.4.0            # via mongoengine
+python-dateutil==2.6.1    # via dateutils
+pytz==2017.2              # via dateutils
+six==1.10.0               # via flask-cors, mongoengine, python-dateutil
 werkzeug==0.12.2          # via flask

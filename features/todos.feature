@@ -25,4 +25,4 @@ Então a aplicação deve retornar um objeto contendo o valor "Python"
 Cenário: Desenvolver um método para deletar um TODO
 Dado o ID "59713ab96e9552587fe95036"
 Quando o usuário deletar um TODO do cadastro
-Então a aplicação deve retornar o código "204"
+Então a aplicação deve retornar o código "200"

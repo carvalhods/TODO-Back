@@ -23,7 +23,7 @@ def get_todo(busca):
         busca (str): Critério de busca que será comparado ao campo 'item'
             de cada TODO cadastrado
     """
-    retorno = Todo.objects.filter(item__contains=busca)
+    retorno = Todo.objects.filter(item__icontains=busca)
     if retorno:
         return retorno.to_json(), status.HTTP_200_OK
     return "", status.HTTP_404_NOT_FOUND
@@ -55,4 +55,4 @@ def delete_todo(id):
         id (str): ID do TODO a ser excluído da base de dados
     """
     Todo.objects(id=id).delete()
-    return "", status.HTTP_204_NO_CONTENT
+    return "", status.HTTP_200_OK
