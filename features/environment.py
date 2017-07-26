@@ -1,5 +1,5 @@
-from flask import current_app
+from app import create_app
 
 
 def before_all(context):
-    context.client = current_app.test_client()
+    context.client = create_app().test_client()

@@ -11,3 +11,6 @@ git clone https://github.com/carvalhods/todo-back.git<br>
 cd todo-back<br>
 pip install -r requirements.txt<br>
 python app.py runserver
+
+## Testes
+behave features/todos.feature
