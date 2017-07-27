@@ -7,11 +7,9 @@ from flask_cors import CORS, cross_origin
 from mongoengine import connect, StringField, IntField
 from marshmallow_mongoengine import ModelSchema
 import mongoengine_goodjson as mgj
+from build import create_app
 
-app = FlaskAPI(__name__)
-CORS(app)
-app.config.from_pyfile("config.py")
-connect(**app.config['MONGO_SETTINGS'])
+app = create_app()
 
 
 class Todo(mgj.Document):

@@ -8,26 +8,25 @@ Funcionalidade: Implementar um TODO
   Como aplicação
   Desejo uma API com funções CRUD
 
-  @10
-  Cenário: Aplicação irá incluir um TODO
-    Dado o valor "Programar em Python"
-    Quando a aplicação incluir um TODO
-    Então a aplicação deve retornar o código "201"
+  Contexto:
+    Dado o valor "Programar em JS"
 
-  # @10
-  # Cenário: Desenvolver um método para listar todos os TODOs cadastrados
-  # Dado nenhum valor
-  # Quando o usuário buscar por todos os registros
-  # Então a aplicação deve retornar uma lista, preenchida ou não
-  #
-  # @11
-  # Cenário: Desenvolver um método para localizar um TODO
-  # Dado a palavra-chave "Python"
-  # Quando o usuário fazer uma busca
-  # Então a aplicação deve retornar um objeto contendo o valor "Python"
-  #
-  # @12
-  # Cenário: Desenvolver um método para deletar um TODO
-  # Dado o ID "59713ab96e9552587fe95036"
-  # Quando o usuário deletar um TODO do cadastro
-  # Então a aplicação deve retornar o código "200"
+  @10
+  Cenário: Aplicação irá pesquisar um TODO
+    Quando a aplicação pesquisar um TODO
+    Então a aplicação não deve retornar erros
+
+  @11
+  Cenário: Aplicação irá incluir um TODO
+    Quando a aplicação incluir um TODO
+    Então a aplicação não deve retornar erros
+
+  @12
+  Cenário: Aplicação irá editar um TODO
+    Quando a aplicação editar um TODO
+    Então a aplicação não deve retornar erros
+
+  @13
+  Cenário: Aplicação irá deletar um TODO
+    Quando a aplicação deletar um TODO
+    Então a aplicação não deve retornar erros

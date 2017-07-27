@@ -1,77 +1,48 @@
 from behave import given, when, then
-from app import get_all_todos
-from app import get_todo
-from app import delete_todo
+import requests as r
+import json
+from app import Todo
+
+
+@given(u'o valor "{valor}"')
+def step_impl(context, valor):
+    context.valor = valor
+    context.todo = Todo(item=valor)
+    context.todo.save()
+
+
+@then(u'a aplicação não deve retornar erros')
+def step_impl(context):
+    assert context.retorno.status_code != 500
+
+
+##########################################################
+# Cenário: Aplicação irá pesquisar um TODO
+##########################################################
+@when(u'a aplicação pesquisar um TODO')
+def step_impl(context):
+    context.retorno = r.get(context.server + "/" + context.valor)
 
 
 ########################################################
 # Cenário: Aplicação irá incluir um TODO
 ########################################################
-@given(u'o valor "{valor}"')
-def step_impl(context, valor):
-    context.valor = valor
-
-
 @when(u'a aplicação incluir um TODO')
 def step_impl(context):
-    with context.client as client:
-        context.retorno = client.post('/', json={"item": context.valor})
+    context.retorno = r.post(context.server + "/", json={"item": context.valor})
 
 
-@then(u'a aplicação deve retornar o código "{codigo}"')
-def step_impl(context, codigo):
-    assert context.retorno[-4:-1] == str(codigo)
+##########################################################
+# Cenário: Aplicação irá editar um TODO
+##########################################################
+@when(u'a aplicação editar um TODO')
+def step_impl(context):
+    context.retorno = r.post(context.server + "/", json={"id": str(context.todo.id), "item": context.todo.item})
 
 
-# ##########################################################################
-# # Cenário: Desenvolver um método para listar todos os TODOs cadastrados
-# ##########################################################################
-# @given(u'nenhum valor')
-# def step_impl(context):
-#     pass
-#
-#
-# @when(u'o usuário buscar por todos os registros')
-# def step_impl(context):
-#     context.retorno = str(get_all_todos())
-#
-#
-# @then(u'a aplicação deve retornar uma lista, preenchida ou não')
-# def step_impl(context):
-#     assert context.retorno[-4:-1] == '200'
-#
-#
-# ##########################################################################
-# # Cenário: Desenvolver um método para localizar um TODO
-# ##########################################################################
-# @given(u'a palavra-chave "{keyword}"')
-# def step_impl(context, keyword):
-#     context.keyword = keyword
-#
-#
-# @when(u'o usuário fazer uma busca')
-# def step_impl(context):
-#     context.retorno = str(get_todo(context.keyword))
-#
-#
-# @then(u'a aplicação deve retornar um objeto contendo o valor "{valor}"')
-# def step_impl(context, valor):
-#     assert context.retorno.find(valor) >= 0
-#
-#
-# ##########################################################################
-# # Cenário: Desenvolver um método para deletar um TODO
-# ##########################################################################
-# @given(u'o ID "{id}"')
-# def step_impl(context, id):
-#     context.id = id
-#
-#
-# @when(u'o usuário deletar um TODO do cadastro')
-# def step_impl(context):
-#     context.retorno = str(delete_todo(context.id))
-#
-#
-# @then(u'a aplicação deve retornar o código "{codigo}"')
-# def step_impl(context, codigo):
-#     assert context.retorno[-4:-1] == codigo
+##########################################################
+# Cenário: Aplicação irá deletar um TODO
+##########################################################
+@when(u'a aplicação deletar um TODO')
+def step_impl(context):
+    context.retorno = r.delete(context.server + "/" + str(context.todo.id))
