@@ -24,12 +24,15 @@ def step_impl(context):
     context.retorno = r.get(context.server + "/" + context.valor)
 
 
-########################################################
-# Cenário: Aplicação irá incluir um TODO
-########################################################
+# ########################################################
+# # Cenário: Aplicação irá incluir um TODO
+# ########################################################
 @when(u'a aplicação incluir um TODO')
 def step_impl(context):
-    context.retorno = r.post(context.server + "/", json={"item": context.valor})
+    context.retorno = r.post(
+        context.server + "/",
+        json={"item": context.valor}
+    )
 
 
 ##########################################################
@@ -37,7 +40,10 @@ def step_impl(context):
 ##########################################################
 @when(u'a aplicação editar um TODO')
 def step_impl(context):
-    context.retorno = r.post(context.server + "/", json={"id": str(context.todo.id), "item": context.todo.item})
+    context.retorno = r.post(
+        context.server + "/",
+        json={"id": str(context.todo.id), "item": context.todo.item}
+    )
 
 
 ##########################################################
